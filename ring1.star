@@ -1,14 +1,6 @@
 load("render.star", "render")
-load("http.star", "http")
-load("html.star", "html")
-load("cache.star", "cache")
 load("encoding/base64.star", "base64")
-load("encoding/json.star", "json")
-load("humanize.star", "humanize")
 load("time.star", "time")
-load("math.star", "math")
-load("re.star", "re")
-load("schema.star", "schema")
 
 ringProg0 = base64.decode("""iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAYAAACNiR0NAAAACXBIWXMAAAsTAAALEwEAmpwYAAAA
 AXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAGSSURBVHgBrZWBVcIwFEV/MgEbNJ1AnECcAJ3A
@@ -170,7 +162,7 @@ xb4AqVvEdF1vj2UAAAAASUVORK5CYII=
 """)
 
 def calc_day_progress(now, config):
-    day_progress = 100 * ((now.hour * 60 * 60) + (now.minute * 60) + now.second) / (24 * 60 * 60)
+    day_progress = 100 * ((now.hour * 60 * 60) + (now.minute * 60) + now.second) // (24 * 60 * 60)
 
     return day_progress
 
@@ -196,7 +188,7 @@ def calc_day_progress_custom(now, config):
     if end_time <= start_time or end_time.hour == 0:  #move date to the next day for end time if the duration is negative
         end_time += time.parse_duration("24h")
 
-    day_progress = 100 * (now - start_time) / (end_time - start_time)  #calculate percentage
+    day_progress = 100 * (now - start_time) // (end_time - start_time)  #calculate percentage
     return day_progress
 
 def main(config): 
